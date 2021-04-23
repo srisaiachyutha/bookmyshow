@@ -1,0 +1,96 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col col-6 offset-3">
+            <div class="card">
+                <div class="card-header text-center text-info text-uppercase">
+                    Sign Up Please
+                </div>
+
+                <div class="card-body">
+                    <form [formGroup]="signinForm">
+
+                        <div class="form-group row">
+                            <label for="personname" class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="personname" name="personname" formControlName="personname"
+                                       required />
+                                <!-- me adding erros one -->
+                                <div *ngIf="signinForm.get('personname')?.invalid && (signinForm.get('personname')?.dirty || signinForm.get('personname')?.touched)"
+                                     class="alert alert-danger">
+                                    <small *ngIf="signinForm.get('personname')?.errors?.required">
+                                        Name is required
+                                    </small>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="email" name="email" formControlName="email"
+                                       placeholder="name@example.com" required />
+                                <!-- me adding erros one -->
+                                <div *ngIf="signinForm.get('email')?.invalid && (signinForm.get('email')?.dirty || signinForm.get('email')?.touched)"
+                                     class="alert alert-danger">
+                                    <small *ngIf="signinForm.get('email')?.errors?.required">
+                                        Email is required
+                                    </small>
+                                    <small *ngIf="signinForm.get('email')?.errors?.pattern">
+                                        Email is not valid one
+                                    </small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="password" name="password"
+                                       formControlName="password" placeholder="Enter password" required />
+
+                                <div *ngIf="signinForm.get('password')?.invalid && (signinForm.get('password')?.dirty || signinForm.get('password')?.touched)"
+                                     class="alert alert-danger">
+                                    <small *ngIf="signinForm.get('password')?.errors?.required">
+                                        password is required
+                                    </small>
+                                    <small *ngIf="signinForm.get('password' )?.errors?.minlength">
+                                        password is not valid one
+                                    </small>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="mobile" class="col-sm-3 col-form-label">Mobile</label>
+                            <div class="col-sm-9">
+                                <input  class="form-control" id="mobile" name="mobile"
+                                       formControlName="mobile" required />
+
+                                <div *ngIf="signinForm.get('mobile')?.invalid && (signinForm.get('mobile')?.dirty || signinForm.get('mobile')?.touched)"
+                                     class="alert alert-danger">
+                                    <small *ngIf="signinForm.get('mobile')?.errors?.required">
+                                        mobile number is required
+                                    </small>
+                                    <small *ngIf="signinForm.get('mobile' )?.errors?.minlength">
+                                        mobile number is not valid one
+                                    </small>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-primary" [disabled]="!signinForm.valid" type="button"
+                                    (click)="onsignup()">
+                                Sign Up
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

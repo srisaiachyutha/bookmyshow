@@ -1,0 +1,32 @@
+
+<!--<div *ngIf="tickets"   >
+    <div *ngFor="let ticket of tickets">
+        <hr />
+        <p>MovieName: {{ticket.movieName}}</p>
+        <p>TicketId:  {{ticket.ticketId}}</p>
+        <p>Seats: {{ticket.info}}</p>
+        <p>cost: {{ticket.cost}}</p>
+        <button class="btn btn-danger" (click)="cancelTicket(ticket)">Cancel ticket</button>
+    </div>
+</div>-->
+<div *ngIf="!tickets">No tickets to show</div>
+<div class="row row-cols-1 row-cols-md-3" *ngIf="tickets">
+    <div class="col mb-4" style="max-width: 18rem;" *ngFor="let ticket of tickets">
+        <div class="card">
+            <div class="card-header card-title bg-transparent border-success">{{ ticket.movieName }}</div>
+           
+            <div class="card-body">
+                <h5 class="">Info</h5>
+                <p class="card-text ">
+                   {{ ticket.info}}
+                </p>
+                <p class="card-text">Cost: {{ticket.cost}}</p>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-danger" (click)="cancelTicket(ticket)">Cancel ticket</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,43 @@
+
+
+
+<div class="row ml-3 mg-auto align-items-center">
+    <div class="col">
+        <div class="seat bg-danger"></div>
+        Booked
+    </div>
+    <div class="col">
+        <div class="seat bg-secondary"></div>
+        Not booked
+    </div>
+    <div class="col">
+        <div class="seat bg-success"></div>
+        Selected
+    </div>
+
+</div>
+
+<div *ngIf="seats" class="theater-container">
+
+    <div *ngIf="image" class="screen" [style.background-image]="image"> </div>
+
+    <div *ngFor="let seatrow of seats" class="row">
+        <div [ngClass]="{'bg-danger': bookedSeats[seat.seatNo - 1] == 'true',
+             'bg-success': bookedSeats[seat.seatNo - 1] =='false',
+             'bg-secondary': bookedSeats[seat.seatNo - 1] =='null' }"
+             *ngFor="let seat of seatrow" class="seat" id="{{seat.seatNo}}" (click)="handle($event ,seat)">
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row ml-3 align-items-center" *ngIf="selectedSeats">
+    <div class="col">
+        <span *ngFor="let seat of selectedSeats">{{seat}}</span>     cost is <span class="border border-danger"> {{cost}}</span>
+    </div>
+    <div class="col">
+        <button class="btn btn-success" (click)="bookTickets()"> Book Tickets </button>
+    </div>
+</div>

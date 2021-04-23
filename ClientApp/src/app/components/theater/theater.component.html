@@ -1,0 +1,13 @@
+<div class="container">
+    Choose Theater
+    <div class="card text-center card-header mb-2" *ngFor="let theater of theaters" (click)="handleTheater(theater)">
+        <div class="card-header">TheaterName is: {{ theater.theaterName }} <br />  Location is {{ theater.location }}</div>
+       
+    </div>
+
+    <!--<div class="card text-center" *ngFor="let city of cities " (click)="handleCity(city)">
+        <div class="card-header card-title">{{city.cityName}}</div>
+    </div>-->
+
+
+</div>

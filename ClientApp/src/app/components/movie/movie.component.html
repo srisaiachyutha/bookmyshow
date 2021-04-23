@@ -1,0 +1,28 @@
+<!--<div *ngFor="let movie of moviesData">
+    <h1>{{ movie[1].movie.movieName }}</h1>
+    <img [src]="movie[1].movie.poster" />
+    <h3>timings</h3>
+    <div *ngFor="let timing of movie[1].timings">
+        <span>show start : {{ timing.timeStart }}</span>
+        <span> show date: {{ timing.showDate }}</span>
+    </div>
+</div>-->
+
+<h1>{{theaterName }}</h1>
+
+<div class="row row-cols-1 row-cols-md-2">
+    <div class="col mb-4" style="max-width: 18rem;" *ngFor="let movie of moviesData">
+        <div class="card">
+            <div class="card-header card-title bg-transparent border-success">{{ movie[1].movie.movieName }}</div>
+            <img [src]="movie[1].movie.poster"  class="card-img-top " alt="...">
+            <div class="card-body">
+                <h5 class="">timings</h5>
+                <p class="card-text card-footer" *ngFor="let timing of movie[1].timings" (click)="handleTimings(timing)">
+                    {{ timing.timeStart}}
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
