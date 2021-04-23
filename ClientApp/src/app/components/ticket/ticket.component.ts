@@ -41,12 +41,7 @@ export class TicketComponent implements OnInit {
       .subscribe(result => {
         console.log(result);
         this.loadTicketData();
-      }, error => console.log(error));
-
-    
-    //console.log(JSON.parse(ticketInfo.info));
-    
-      
+      }, error => console.log(error));      
   }
 
 }

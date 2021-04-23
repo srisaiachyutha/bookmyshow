@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Component, Inject } from '@angular/core';
+import { City } from '../../models/City';
+import { Theater } from '../../models/Theater';
+import { Seats } from '../../models/Seats';
 
 //imports for providing and converting data
 import { HttpClient } from '@angular/common/http';
@@ -26,9 +29,7 @@ export class DataService {
 
   fetchCities() {
     return this.http.get<City[]>(this._baseUrl + 'api/data/cities');
-  }
-
-  
+  }  
 
   fetchMoviesInTheater( theaterId : number ) {
     return this.http.get<Theater[]>(this._baseUrl + 'api/data/movies?theaterId=' + theaterId.toString());
@@ -52,22 +53,11 @@ export class DataService {
       cost: cost
 
     };
-    console.log(body);
+    
 
     return this.http.post<any>(this._baseUrl + 'api/data/booktickets',body);
 
   }
-
-  signUp( signUpData ) {
-
-    let body = signUpData;
-    return this.http.post<any>(this._baseUrl + 'api/data/signup', body);
-  }
-
-  //signIn( body ) {
-
-  //  return this.http.post<any>(this._baseUrl + 'api/data/signin', body);
-  //}
 
   getTickets(body) {
     return this.http.post<any>(this._baseUrl + 'api/data/gettickets', body);
@@ -79,23 +69,4 @@ export class DataService {
 
 }
 
-interface Theater {
-  theaterId: number;
-  cityId: number;
-  location: string;
-  theaterName: string;
 
-}
-
-interface City {
-  cityId: number;
-  cityName: string;
-}
-
-interface Seats {
-  showId: number;
-  seatNo: number;
-  booked: string;
-  cost: number;
-
-}

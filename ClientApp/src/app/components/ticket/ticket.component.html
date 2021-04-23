@@ -1,14 +1,4 @@
 
-<!--<div *ngIf="tickets"   >
-    <div *ngFor="let ticket of tickets">
-        <hr />
-        <p>MovieName: {{ticket.movieName}}</p>
-        <p>TicketId:  {{ticket.ticketId}}</p>
-        <p>Seats: {{ticket.info}}</p>
-        <p>cost: {{ticket.cost}}</p>
-        <button class="btn btn-danger" (click)="cancelTicket(ticket)">Cancel ticket</button>
-    </div>
-</div>-->
 <div *ngIf="!tickets">No tickets to show</div>
 <div class="row row-cols-1 row-cols-md-3" *ngIf="tickets">
     <div class="col mb-4" style="max-width: 18rem;" *ngFor="let ticket of tickets">

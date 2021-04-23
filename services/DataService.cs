@@ -29,11 +29,11 @@ namespace bookmyshow.services
                 var con = new SqlConnection(_connStr);
                 var db = new Database(con, null);
                 con.Open();
-                //Console.WriteLine(con.State.ToString());
+                
                 foreach (City city in db.Query<City>(@"SELECT * FROM [myshowDB].[dbo].[city];"))
                 {
                     cities.Add(city);
-                    Console.WriteLine(city.cityId);
+                   
                 }
 
                 con.Close();
@@ -48,7 +48,7 @@ namespace bookmyshow.services
 
             List<dynamic> ticketInfo = new List<dynamic>();
 
-            //return tickets;
+            
             await Task.Run(() => {
 
                 var con = new SqlConnection(_connStr);
@@ -73,18 +73,11 @@ namespace bookmyshow.services
 
                         );
 
-                   // Console.WriteLine("cost:" + d.cost.ToString() + @"; email:" + d.email + "movie:" + d.movieName);
+                   
                 }
-                Console.WriteLine(ticketInfo);
-
-                
-
-                //foreach (Ticket ticket in db.Query<Ticket>(@"SELECT * FROM [myshowDB].[dbo].[ticket] where email like @0 ; " , email))
-                //{
-                //    tickets.Add(ticket);
-                //}
+             
                 con.Close();
-                //return tickets;
+                
                 return ticketInfo;
             });
             return ticketInfo;
@@ -130,10 +123,7 @@ namespace bookmyshow.services
                 string s = seats.Remove(seats.Length - 1, 1);
                 s = s.Substring(1);
 
-                //if (seats.Length > 1)
-                //    s = String.Join(",", seats);
-                //else
-                //    s = String.Join(",", seats);
+                
                 var count = s.Count(x => x == ',') + 1;
                 int c =0;
 
@@ -143,25 +133,13 @@ namespace bookmyshow.services
                     )) {
 
                     c = a;
-                    Console.WriteLine(a);
+                   
                 }
 
                 if(count == c)
                 {
                     db.Execute(@" update [myshowDB].[dbo].[seat] set [booked] = 1  where showId = " + showId
                     + @" and seatNo in ( " + s + @");");
-
-
-
-                    //INSERT INTO[myshowDB].[dbo].[ticket]
-                    //(--Columns to insert data into
-                    //[email],[showId], [cost], [info]
-                    //)
-                    //VALUES
-                    //(--First row: values for the columns in the list abov
-                    //'one@mail.com', 2, 200, '{ "seats": [ 1, 5 ,7]  }'
-                    //) ;
-
                     
                     Ticket ticket = new Ticket {
 
@@ -171,13 +149,8 @@ namespace bookmyshow.services
                         info =  @" { seats: " + temp + @" } ",
                     };
 
-                    //foreach (int a in db.Query<int>(@" INSERT INTO [myshowDB].[dbo].[ticket]( [email],[showId], [cost], [info]) OUTPUT INSERTED.ID  values( '" +
-                    // email + @"' ,  " + showId + "," + cost + @", '{ seats:" + temp + @"}'); ")) {
-
-                    //    return a.ToString();
-                    //}
                 var ticketId =  db.Insert("[myshowDB].[dbo].[ticket]", ticket);
-                    Console.WriteLine(ticketId.ToString() + "ticket id");
+                    
                     return ticketId.ToString();
                     
                 }
@@ -210,7 +183,7 @@ namespace bookmyshow.services
                 {
 
                     c = a;
-                    Console.WriteLine(a);
+                    
                 }
                 if(c >= 1)
                 {
@@ -237,7 +210,7 @@ namespace bookmyshow.services
                 }
 
                 
-                //return "";
+                
             });
 
 
@@ -258,7 +231,7 @@ namespace bookmyshow.services
                 foreach (Theater theater in db.Query<Theater>(@"SELECT * FROM [myshowDB].[dbo].[theater] where cityId = " + cityId.ToString() + @";"))
                 {
                     theaters.Add(theater);
-                    Console.WriteLine(theater);
+                    
                 }
                 con.Close();
                 return theaters;
@@ -284,7 +257,7 @@ namespace bookmyshow.services
                 ))
                 {
                     data["poster"] = d.poster;
-                    Console.WriteLine(d.poster);
+                   
                 }
                 con.Close();
 
@@ -315,9 +288,9 @@ namespace bookmyshow.services
                 (select distinct(movieId)
                     from #temp);
                 "))
-                // ( " + theaterId.ToString() + @")"))
+                
                 {
-                    Console.WriteLine(d.poster);
+                    //Console.WriteLine(d.poster);
                     data["movies"].Add(
                         new Dictionary<string, dynamic>()
                         {
@@ -332,8 +305,7 @@ namespace bookmyshow.services
 
                 foreach (dynamic d in db.Query<dynamic>(@"
                     select movieId , showId ,timeStart ,showDate from #temp;"))
-                //trucate #temp;
-                //"))
+               
                 {
                     data["timings"].Add(
                         new Dictionary<string, dynamic>()
@@ -367,7 +339,7 @@ namespace bookmyshow.services
                 var db = new Database(con, null);
                 con.Open();
 
-                // db.Query<int>("");
+                
                 foreach (Seats seat in db.Query<Seats>(@"
                 select showId , seatNo , (case when booked is null
                     then 'null'
@@ -393,10 +365,10 @@ namespace bookmyshow.services
                 var con = new SqlConnection(_connStr);
                 var db = new Database(con, null);
                 con.Open();
-                //Console.WriteLine(con.State.ToString());
+                
 
                 db.Execute(@" update [myshowDB].[dbo].[seat] set booked = null where seatNo in ("+seats + @") ;" );
-                //db.Delete<Ticket>("WHERE [Id] = @0", ticketId );
+                
                 db.Delete(" [myshowDB].[dbo].[ticket] " , "ticketId",new Ticket { ticketId = Int32.Parse(ticketId) });
                 con.Close();
 

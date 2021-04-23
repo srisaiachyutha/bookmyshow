@@ -28,21 +28,11 @@ namespace bookmyshow.Controllers
 
         [HttpPost]
         [Route("booktickets")]
-        //public async Task<JsonResult> BookTicket([FromBody] int showId = 0, [FromBody] string email ="mail@mail.com", [FromBody] int cost = 0, [FromBody] dynamic seats = null )
         public async Task<JsonResult> BookTicket([FromBody] dynamic body)
         {
 
-
-            Console.WriteLine(body.GetType() );
-           
-            Console.WriteLine(body.GetProperty("showId").GetType() +  body.GetProperty("seats").ToString());
-            
-            var data = new String[4];
-            //var tdata = this._dataService.BookTicket(body["showId"] ,  body["email"] , body["cost"] , body["seats"]);
-            
-            var tdata =  await this._dataService.BookTicket( body.GetProperty("showId").ToString() , body.GetProperty("email").ToString(), body.GetProperty("cost").ToString() ,  body.GetProperty("seats").ToString());
-            Console.WriteLine(tdata);
-            return new JsonResult(tdata);
+            var response =  await this._dataService.BookTicket( body.GetProperty("showId").ToString() , body.GetProperty("email").ToString(), body.GetProperty("cost").ToString() ,  body.GetProperty("seats").ToString());  
+            return new JsonResult(response);
 
         }
 
@@ -52,7 +42,6 @@ namespace bookmyshow.Controllers
         {
 
             string response = await this._dataService.SignUp(body.GetProperty("email").ToString() , body.GetProperty("phoneNumber").ToString() , body.GetProperty("password").ToString() , body.GetProperty("personName").ToString() );
-            Console.WriteLine(response);
             return new JsonResult( response);
         }
 
@@ -62,7 +51,7 @@ namespace bookmyshow.Controllers
         {
 
             string response = await this._dataService.SignIn(body.GetProperty("email").ToString(), body.GetProperty("password").ToString());
-            Console.WriteLine(response);
+            
             return new JsonResult(response);
         }
 
@@ -71,7 +60,7 @@ namespace bookmyshow.Controllers
         public async Task<JsonResult> GetTickets([FromBody] dynamic body)
         {
             var response = await this._dataService.GetTickets(body.GetProperty("email").ToString());
-            Console.WriteLine(response);
+            
             return new JsonResult(response);
         }
 
@@ -97,10 +86,7 @@ namespace bookmyshow.Controllers
         [Route("theaters")]
         public async Task<IEnumerable<Theater>> GetTheaters(int cityId)
         {
-            // TODO
-            Console.WriteLine(" theater is called");
-            //string k = @"SELECT * FROM [myshowDB].[dbo].[theater] where cityId = " + cityId.ToString() + @";";
-            //Console.WriteLine(k);
+           
             List<Theater> theaters = new List<Theater>();
             theaters = await this._dataService.GetTheatersInCity(cityId);
 
@@ -113,10 +99,7 @@ namespace bookmyshow.Controllers
         [Route("movies")]
         public async Task<JsonResult> AllMoviesInATheater(int theaterId)
         {
-            //var t = new string[] { };
-            //Dictionary<string, dynamic> data = new Dictionary<string, dynamic>();
-
-            //Console.WriteLine(data["movies"][0]["poster"]);
+            
            var data = await this._dataService.GetMoviesInTheater(theaterId);
             return new JsonResult(data);
         }
@@ -143,10 +126,6 @@ namespace bookmyshow.Controllers
             return  new JsonResult(data);
 
         }
-
-        
-
-
 
     }
 }
